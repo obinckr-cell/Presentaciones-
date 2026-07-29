@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ciencias Naturales y Educación Ambiental</title>
+    <title>Sentido Pedagógico - Ciencias Naturales y Educación Ambiental</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -29,14 +29,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 16px 12px 90px 12px; /* Espacio abajo para la barra de control */
+            padding: 16px 12px 90px 12px;
         }
 
-        /* Ocultar diapositivas por defecto */
         .slide {
             display: none;
             width: 100%;
-            max-width: 800px;
+            max-width: 820px;
             background-color: var(--card-bg);
             border-radius: 24px;
             overflow: hidden;
@@ -46,7 +45,6 @@
             animation: fadeIn 0.3s ease-in-out;
         }
 
-        /* Diapositiva activa */
         .slide.active {
             display: flex;
         }
@@ -58,7 +56,7 @@
 
         .slide-image {
             width: 100%;
-            height: 210px;
+            height: 190px;
             position: relative;
         }
 
@@ -69,41 +67,41 @@
         }
 
         .slide-content {
-            padding: 24px 20px;
+            padding: 24px 22px;
             display: flex;
             flex-direction: column;
         }
 
         .slide-tag {
             color: var(--accent);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         h1 {
-            font-size: 1.75rem;
+            font-size: 1.65rem;
             line-height: 1.25;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: #ffffff;
         }
 
         h2 {
-            font-size: 1.45rem;
+            font-size: 1.35rem;
             line-height: 1.25;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             font-weight: 800;
             color: #ffffff;
         }
 
         .main-desc {
             color: var(--text-muted);
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             line-height: 1.5;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .key-points {
@@ -115,7 +113,7 @@
         .point-card {
             background: rgba(255,255,255,0.04);
             border-left: 4px solid var(--accent);
-            padding: 12px 14px;
+            padding: 11px 13px;
             border-radius: 0 10px 10px 0;
         }
 
@@ -123,13 +121,13 @@
             color: #ffffff;
             display: block;
             margin-bottom: 2px;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 700;
         }
 
         .point-card span {
             color: var(--text-muted);
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             line-height: 1.4;
             display: block;
         }
@@ -137,21 +135,20 @@
         .quote-box {
             background: rgba(16, 185, 129, 0.12);
             border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 18px;
+            padding: 16px;
             border-radius: 14px;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .quote-box p {
             color: #ffffff;
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-style: italic;
             line-height: 1.4;
             margin: 0;
             font-weight: 500;
         }
 
-        /* BARRA DE NAVEGACIÓN FLOTANTE */
         .nav-bar {
             position: fixed;
             bottom: 20px;
@@ -208,23 +205,22 @@
             text-align: center;
         }
 
-        /* Vista en PC / Tablet */
         @media (min-width: 768px) {
             .slide.active {
                 display: grid;
-                grid-template-columns: 1fr 1.4fr;
-                min-height: 480px;
+                grid-template-columns: 1fr 1.3fr;
+                min-height: 500px;
             }
             .slide-image {
                 height: 100%;
             }
             .slide-content {
-                padding: 36px;
+                padding: 32px;
                 justify-content: center;
             }
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 1.8rem; }
-            .main-desc { font-size: 1.1rem; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.6rem; }
+            .main-desc { font-size: 1.05rem; }
         }
     </style>
 </head>
@@ -233,15 +229,15 @@
     <!-- Diapositiva 1 -->
     <div class="slide active">
         <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80" alt="Exploración científica escolar">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80" alt="Pedagogía y práctica docente">
         </div>
         <div class="slide-content">
-            <span class="slide-tag">Educación Ambiental</span>
-            <h1>El Mundo de la Vida</h1>
-            <p class="main-desc">Comprendiendo nuestro entorno no desde fórmulas memorizadas, sino desde la experiencia diaria y la ciencia práctica.</p>
+            <span class="slide-tag">Fundamentación Docente</span>
+            <h1>Sentido del Área en el Mundo de la Vida</h1>
+            <p class="main-desc">Superar la enseñanza enciclopédica para conectar el conocimiento científico con la praxis cotidiana de los estudiantes.</p>
             <div class="point-card">
-                <strong>Enfoque Pedagógico</strong>
-                <span>Aprender a explorar, observar y conectar de forma directa con la realidad.</span>
+                <strong>Intencionalidad Didáctica</strong>
+                <span>El aula como un espacio de diálogo entre el saber escolar y la realidad socioambiental del educando.</span>
             </div>
         </div>
     </div>
@@ -252,16 +248,16 @@
             <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80" alt="Evolución del universo">
         </div>
         <div class="slide-content">
-            <span class="slide-tag">01. Orígenes</span>
-            <h2>Evolución del Universo</h2>
+            <span class="slide-tag">Dimensión Epistemológica</span>
+            <h2>Evolución del Universo: Descentralización del Sujeto</h2>
             <div class="key-points">
                 <div class="point-card">
-                    <strong>Big Bang y Materia</strong>
-                    <span>Miles de millones de años estructurando la energía, estrellas y galaxias.</span>
+                    <strong>De la Memorización a la Comprensión</strong>
+                    <span>Abordar el origen cósmico no como datos abstractos, sino como la construcción histórica de la materia y la energía.</span>
                 </div>
                 <div class="point-card">
-                    <strong>Perspectiva Cósmica</strong>
-                    <span>Entender nuestro origen común para valorar la existencia de la Tierra.</span>
+                    <strong>Relevancia Formativa</strong>
+                    <span>Permite al estudiante dimensionar su existencia en el tiempo y el espacio, generando asombro y conciencia de nuestra fragilidad planetaria.</span>
                 </div>
             </div>
         </div>
@@ -270,19 +266,19 @@
     <!-- Diapositiva 3 -->
     <div class="slide">
         <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80" alt="Experimento y ciencia">
+            <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80" alt="Procesos físicos y químicos">
         </div>
         <div class="slide-content">
-            <span class="slide-tag">02. Materia y Energía</span>
-            <h2>Procesos Físicos y Químicos</h2>
+            <span class="slide-tag">Alfabetización Científica</span>
+            <h2>Procesos Físicos y Químicos: Lectura del Entorno</h2>
             <div class="key-points">
                 <div class="point-card">
-                    <strong>Procesos Físicos</strong>
-                    <span>Fuerzas, gravedad, ciclos hidrológicos y energía en constante cambio.</span>
+                    <strong>Mediación Experimental</strong>
+                    <span>Convertir fenómenos cotidianos (combustión, cambios de estado, fuerzas) en objetos de indagación escolar.</span>
                 </div>
                 <div class="point-card">
-                    <strong>Procesos Químicos</strong>
-                    <span>Estructura de la materia y combinación de elementos para formar sustancias vitales.</span>
+                    <strong>Pensamiento Causal</strong>
+                    <span>Dotar al estudiante de herramientas analíticas para interpretar cómo opera la materia y la energía en su entorno inmediato.</span>
                 </div>
             </div>
         </div>
@@ -291,19 +287,19 @@
     <!-- Diapositiva 4 -->
     <div class="slide">
         <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80" alt="Biodiversidad y bosque">
+            <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80" alt="Procesos biológicos">
         </div>
         <div class="slide-content">
-            <span class="slide-tag">03. La Red de la Vida</span>
-            <h2>Procesos Biológicos</h2>
+            <span class="slide-tag">Eco-formación</span>
+            <h2>Procesos Biológicos: Comprensión de la Vida</h2>
             <div class="key-points">
                 <div class="point-card">
-                    <strong>Genética y Evolución</strong>
-                    <span>Mecanismos que hacen posible la diversidad y adaptación de las especies.</span>
+                    <strong>Enfoque Sistémico</strong>
+                    <span>Estudiar la biodiversidad y la genética entendiendo que todo organismo está interconectado en redes tróficas y ecosistémicas.</span>
                 </div>
                 <div class="point-card">
-                    <strong>Equilibrio Ecológico</strong>
-                    <span>Interacciones dinámicas dentro de las redes tróficas y los ecosistemas.</span>
+                    <strong>Valoración de lo Vivo</strong>
+                    <span>Fomentar una postura ética donde el estudiante se reconoce a sí mismo como parte de la biosfera, no como su dueño.</span>
                 </div>
             </div>
         </div>
@@ -312,19 +308,19 @@
     <!-- Diapositiva 5 -->
     <div class="slide">
         <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" alt="Cuidado ambiental y sostenibilidad">
+            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" alt="Procesos culturales">
         </div>
         <div class="slide-content">
-            <span class="slide-tag">04. Sociedad y Entorno</span>
-            <h2>Procesos Culturales</h2>
+            <span class="slide-tag">Dimensión Sociocrítica</span>
+            <h2>Procesos Culturales y Praxis Ambiental</h2>
             <div class="key-points">
                 <div class="point-card">
-                    <strong>Transformación Humana</strong>
-                    <span>Cómo la sociedad modifica el ambiente mediante la ciencia y la tecnología.</span>
+                    <strong>Dimensión Antrópica</strong>
+                    <span>Analizar críticamente cómo la acción humana, la ciencia y la tecnología transforman —y muchas veces degradan— los ecosistemas.</span>
                 </div>
                 <div class="point-card">
-                    <strong>Desarrollo Sostenible</strong>
-                    <span>Responsabilidad ética para garantizar la preservación de los recursos.</span>
+                    <strong>Sostenibilidad como Compromiso</strong>
+                    <span>Traducir el conocimiento en participación activa frente a problemáticas socioambientales locales y globales.</span>
                 </div>
             </div>
         </div>
@@ -333,19 +329,19 @@
     <!-- Diapositiva 6 -->
     <div class="slide">
         <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80" alt="Pensamiento crítico escolar">
+            <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80" alt="Finalidad formativa">
         </div>
         <div class="slide-content">
-            <span class="slide-tag">05. Propósito</span>
-            <h2>Finalidad Formativa</h2>
+            <span class="slide-tag">Horizonte Pedagógico</span>
+            <h2>Finalidad Formativa del Área</h2>
             <div class="key-points">
                 <div class="point-card">
-                    <strong>Pensamiento Científico</strong>
-                    <span>Fomentar la curiosidad, el análisis crítico y la resolución de problemas.</span>
+                    <strong>Construcción de Ciudadanía</strong>
+                    <span>Formar sujetos críticos, capaces de tomar decisiones fundamentadas y argumentadas frente a dilemas científicos y ambientales.</span>
                 </div>
                 <div class="point-card">
-                    <strong>Ciudadanía Responsable</strong>
-                    <span>Formar criterios claros para tomar decisiones en favor del bien común.</span>
+                    <strong>Alfabetización Científica Integral</strong>
+                    <span>Desarrollar habilidades de pensamiento científico aplicadas a la resolución de problemas reales del mundo de la vida.</span>
                 </div>
             </div>
         </div>
@@ -354,13 +350,13 @@
     <!-- Diapositiva 7 -->
     <div class="slide">
         <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80" alt="Planta creciendo en manos de una persona">
+            <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80" alt="Reflexión docente">
         </div>
         <div class="slide-content">
-            <span class="slide-tag">Reflexión Final</span>
-            <h2>El Sentido Real</h2>
+            <span class="slide-tag">Conclusión Docente</span>
+            <h2>El Rol del Educador</h2>
             <div class="quote-box">
-                <p>"Enseñar a cuidar el medio ambiente es, en realidad, enseñar a valorar la propia vida."</p>
+                <p>"Enseñar ciencias naturales y educación ambiental no es transmitir verdades acabadas, sino despertar la pasión por indagar y transformar éticamente nuestro mundo de la vida."</p>
             </div>
         </div>
     </div>
@@ -392,7 +388,6 @@
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === slides.length - 1;
             
-            // Volver arriba de la diapositiva al cambiar
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -403,13 +398,11 @@
             updateSlides();
         }
 
-        // Permite pasar diapositivas con las flechas del teclado en PC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) changeSlide(1);
             if (e.key === 'ArrowLeft' && currentSlide > 0) changeSlide(-1);
         });
 
-        // Inicializar
         updateSlides();
     </script>
 </body>
