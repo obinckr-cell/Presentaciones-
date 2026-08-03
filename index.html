@@ -8,10 +8,10 @@
     <style>
         :root {
             --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent: #10b981;
-            --text-main: #ffffff;
-            --text-muted: #cbd5e1;
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --accent: #1e3a8a;
+            --text-main: #1e293b;
+            --text-muted: #475569;
         }
 
         * {
@@ -35,14 +35,17 @@
         .slide {
             display: none;
             width: 100%;
-            max-width: 820px;
-            background-color: var(--card-bg);
+            max-width: 650px;
+            background-image: url('1000109915.jpg');
+            background-size: cover;
+            background-position: center;
             border-radius: 24px;
             overflow: hidden;
             flex-direction: column;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.2);
             animation: fadeIn 0.3s ease-in-out;
+            position: relative;
         }
 
         .slide.active {
@@ -54,27 +57,17 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .slide-image {
-            width: 100%;
-            height: 190px;
-            position: relative;
-        }
-
-        .slide-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         .slide-content {
-            padding: 24px 22px;
+            padding: 55px 45px 50px 45px;
             display: flex;
             flex-direction: column;
+            min-height: 520px;
+            justify-content: center;
         }
 
         .slide-tag {
             color: var(--accent);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -82,24 +75,24 @@
         }
 
         h1 {
-            font-size: 1.65rem;
+            font-size: 1.5rem;
             line-height: 1.25;
             font-weight: 800;
             margin-bottom: 10px;
-            color: #ffffff;
+            color: #0f172a;
         }
 
         h2 {
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             line-height: 1.25;
             margin-bottom: 12px;
             font-weight: 800;
-            color: #ffffff;
+            color: #0f172a;
         }
 
         .main-desc {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.5;
             margin-bottom: 14px;
         }
@@ -111,42 +104,25 @@
         }
 
         .point-card {
-            background: rgba(255,255,255,0.04);
+            background: rgba(15, 23, 42, 0.04);
             border-left: 4px solid var(--accent);
-            padding: 11px 13px;
+            padding: 10px 12px;
             border-radius: 0 10px 10px 0;
         }
 
         .point-card strong {
-            color: #ffffff;
+            color: #0f172a;
             display: block;
             margin-bottom: 2px;
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             font-weight: 700;
         }
 
         .point-card span {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             line-height: 1.4;
             display: block;
-        }
-
-        .quote-box {
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 16px;
-            border-radius: 14px;
-            margin-top: 6px;
-        }
-
-        .quote-box p {
-            color: #ffffff;
-            font-size: 1rem;
-            font-style: italic;
-            line-height: 1.4;
-            margin: 0;
-            font-weight: 500;
         }
 
         .nav-bar {
@@ -187,7 +163,7 @@
         }
 
         .nav-btn.primary {
-            background: var(--accent);
+            background: #38bdf8;
             color: #0f172a;
             border: none;
         }
@@ -200,27 +176,9 @@
         .slide-counter {
             font-size: 0.9rem;
             font-weight: 700;
-            color: var(--text-muted);
+            color: #cbd5e1;
             min-width: 50px;
             text-align: center;
-        }
-
-        @media (min-width: 768px) {
-            .slide.active {
-                display: grid;
-                grid-template-columns: 1fr 1.3fr;
-                min-height: 500px;
-            }
-            .slide-image {
-                height: 100%;
-            }
-            .slide-content {
-                padding: 32px;
-                justify-content: center;
-            }
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.6rem; }
-            .main-desc { font-size: 1.05rem; }
         }
     </style>
 </head>
@@ -228,9 +186,6 @@
 
     <!-- Diapositiva 1 -->
     <div class="slide active">
-        <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80" alt="Mundo de la vida">
-        </div>
         <div class="slide-content">
             <span class="slide-tag">Lineamientos Curriculares</span>
             <h1>El Sentido del Área en el Mundo de la Vida</h1>
@@ -244,9 +199,6 @@
 
     <!-- Diapositiva 2 -->
     <div class="slide">
-        <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80" alt="Evolución del universo">
-        </div>
         <div class="slide-content">
             <span class="slide-tag">Aspectos a Desarrollar</span>
             <h2>Evolución del Universo</h2>
@@ -257,7 +209,7 @@
                 </div>
                 <div class="point-card">
                     <strong>Dimensión Temporal</strong>
-                    <span>Comprende la formación de galaxias, estrellas y planetas (como la Tierra hace 4.500 millones de años), permitiendo al estudiante dimensionar su existencia.</span>
+                    <span>Comprende la formación de galaxias, estrellas y planetas, permitiendo al estudiante dimensionar su existencia.</span>
                 </div>
             </div>
         </div>
@@ -265,9 +217,6 @@
 
     <!-- Diapositiva 3 -->
     <div class="slide">
-        <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80" alt="Procesos físicos y químicos">
-        </div>
         <div class="slide-content">
             <span class="slide-tag">Aspectos a Desarrollar</span>
             <h2>Procesos Físicos y Químicos</h2>
@@ -286,16 +235,13 @@
 
     <!-- Diapositiva 4 -->
     <div class="slide">
-        <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80" alt="Procesos biológicos">
-        </div>
         <div class="slide-content">
             <span class="slide-tag">Aspectos a Desarrollar</span>
             <h2>Procesos Biológicos</h2>
             <div class="key-points">
                 <div class="point-card">
                     <strong>Surgimiento de la Vida</strong>
-                    <span>Organización compleja de moléculas prebiológicas que dieron origen a la vida hace unos tres mil millones de años.</span>
+                    <span>Organización compleja de moléculas prebiológicas que dieron origen a la vida en el planeta.</span>
                 </div>
                 <div class="point-card">
                     <strong>Evolución y Biosfera</strong>
@@ -307,20 +253,17 @@
 
     <!-- Diapositiva 5 -->
     <div class="slide">
-        <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=800&q=80" alt="Procesos culturales">
-        </div>
         <div class="slide-content">
             <span class="slide-tag">Aspectos a Desarrollar</span>
             <h2>Procesos Culturales</h2>
             <div class="key-points">
                 <div class="point-card">
                     <strong>De la Biología a la Cultura</strong>
-                    <span>El Homo Sapiens evoluciona hacia una especie bio-cultural capaz de producir conocimientos, técnicas y símbolos.</span>
+                    <span>El ser humano evoluciona hacia una especie bio-cultural capaz de producir conocimientos, técnicas y símbolos.</span>
                 </div>
                 <div class="point-card">
                     <strong>Praxis y Responsabilidad</strong>
-                    <span>Analiza el impacto de la acción humana y tecnológica sobre el delicado equilibrio que hace posible la vida en el planeta.</span>
+                    <span>Analiza el impacto de la acción humana y tecnológica sobre el delicado equilibrio que hace posible la vida.</span>
                 </div>
             </div>
         </div>
@@ -328,9 +271,6 @@
 
     <!-- Diapositiva 6 -->
     <div class="slide">
-        <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=800&q=80" alt="Finalidad formativa">
-        </div>
         <div class="slide-content">
             <span class="slide-tag">Horizonte Pedagógico</span>
             <h2>Finalidad Formativa del Área</h2>
@@ -347,24 +287,10 @@
         </div>
     </div>
 
-    <!-- Diapositiva 7 -->
-    <div class="slide">
-        <div class="slide-image">
-            <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80" alt="Conclusión">
-        </div>
-        <div class="slide-content">
-            <span class="slide-tag">Conclusión</span>
-            <h2>Educación para el Desarrollo Sostenible</h2>
-            <div class="quote-box">
-                <p>"Comprender los procesos evolutivos para apropiarnos de un acervo de conocimientos que nos permitan ejercer un control responsable, ético y armónico sobre nuestro mundo de la vida."</p>
-            </div>
-        </div>
-    </div>
-
     <!-- Control Navegación -->
     <div class="nav-bar">
         <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">❮ Atrás</button>
-        <span class="slide-counter" id="counter">1 / 7</span>
+        <span class="slide-counter" id="counter">1 / 6</span>
         <button class="nav-btn primary" id="nextBtn" onclick="changeSlide(1)">Siguiente ❯</button>
     </div>
 
@@ -406,5 +332,4 @@
         updateSlides();
     </script>
 </body>
-        </html>
-            
+</html>
