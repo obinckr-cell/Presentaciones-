@@ -8,7 +8,6 @@
     <style>
         :root {
             --bg-color: #0f172a;
-            --card-bg: rgba(255, 255, 255, 0.92);
             --accent: #1e3a8a;
             --text-main: #1e293b;
             --text-muted: #475569;
@@ -36,9 +35,7 @@
             display: none;
             width: 100%;
             max-width: 650px;
-            background-image: url('1000109915.jpg');
-            background-size: cover;
-            background-position: center;
+            /* Cambiado de background-image a etiqueta <img> interna para evitar cortes en computadores */
             border-radius: 24px;
             overflow: hidden;
             flex-direction: column;
@@ -46,6 +43,7 @@
             border: 1px solid rgba(255,255,255,0.2);
             animation: fadeIn 0.3s ease-in-out;
             position: relative;
+            background-color: #ffffff;
         }
 
         .slide.active {
@@ -57,7 +55,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Contenedor que asegura que la imagen de fondo cubra toda la tarjeta de manera fluida */
+        .slide-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Contenedor del contenido situado por encima de la imagen */
         .slide-content {
+            position: relative;
+            z-index: 2;
             padding: 55px 45px 50px 45px;
             display: flex;
             flex-direction: column;
@@ -186,6 +199,7 @@
 
     <!-- Diapositiva 1 -->
     <div class="slide active">
+        <img src="1000109915.jpg" alt="Fondo" class="slide-bg-img">
         <div class="slide-content">
             <span class="slide-tag">Lineamientos Curriculares</span>
             <h1>El Sentido del Área en el Mundo de la Vida</h1>
@@ -199,6 +213,7 @@
 
     <!-- Diapositiva 2 -->
     <div class="slide">
+        <img src="1000109915.jpg" alt="Fondo" class="slide-bg-img">
         <div class="slide-content">
             <span class="slide-tag">Aspectos a Desarrollar</span>
             <h2>Evolución del Universo</h2>
@@ -217,6 +232,7 @@
 
     <!-- Diapositiva 3 -->
     <div class="slide">
+        <img src="1000109915.jpg" alt="Fondo" class="slide-bg-img">
         <div class="slide-content">
             <span class="slide-tag">Aspectos a Desarrollar</span>
             <h2>Procesos Físicos y Químicos</h2>
@@ -235,6 +251,7 @@
 
     <!-- Diapositiva 4 -->
     <div class="slide">
+        <img src="1000109915.jpg" alt="Fondo" class="slide-bg-img">
         <div class="slide-content">
             <span class="slide-tag">Aspectos a Desarrollar</span>
             <h2>Procesos Biológicos</h2>
@@ -253,6 +270,7 @@
 
     <!-- Diapositiva 5 -->
     <div class="slide">
+        <img src="1000109915.jpg" alt="Fondo" class="slide-bg-img">
         <div class="slide-content">
             <span class="slide-tag">Aspectos a Desarrollar</span>
             <h2>Procesos Culturales</h2>
@@ -271,6 +289,7 @@
 
     <!-- Diapositiva 6 -->
     <div class="slide">
+        <img src="1000109915.jpg" alt="Fondo" class="slide-bg-img">
         <div class="slide-content">
             <span class="slide-tag">Horizonte Pedagógico</span>
             <h2>Finalidad Formativa del Área</h2>
