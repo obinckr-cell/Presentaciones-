@@ -143,14 +143,14 @@ dialog .two{grid-template-columns:1fr}
 </header>
 
 <main>
-<section id="hero">
+<section id="hero" hidden>
   <h2>¿Listo para abrir el día?</h2>
   <p>Empieza el día laboral y abre una cuenta por cada grupo que llegue.</p>
   <button class="btn gold big" data-a="empezar">Empezar día laboral</button>
 </section>
 
 <section id="app" hidden>
-  <div id="diabar"><span id="diainfo"></span><div class="dbtn"><button class="btn" data-a="facturas">Facturas (<span id="nfac">0</span>)</button><button class="btn red" data-a="terminar">Terminar día laboral</button></div></div>
+  <div id="diabar"><span id="diainfo"></span><div class="dbtn"><button class="btn" data-a="facturas">Facturas (<span id="nfac">0</span>)</button></div></div>
   <div class="sticky">
     <div class="scroller" id="acc"></div>
     <div class="buscar"><input id="q" type="search" placeholder="Buscar producto" aria-label="Buscar producto" autocomplete="off"><button class="pill" id="vbtn" data-a="vista">Fotos</button></div>
@@ -263,4 +263,4 @@ function factura(c){
   h+=`<div class="fd"></div><div class="fl"><span>Subtotal</span><span>${money(sub(c))}</span></div>`;
   if(c.envio)h+=`<div class="fl"><span>Domicilio</span><span>${money(c.envio.p)}</span></div>`;
   if(propina(c))h+=`<div class="fl"><span>Propina${c.prop.pct?" "+c.prop.pct+"%":""}</span><span>${money(propina(c))}</span></div>`;
-  h+=`<div class="fl" style="font-size:20px;fo
+  h+=`<div class="fl" style="font-size:20px;font-weight:700;margin-top:6px"><span>TOTAL</span><span>${money(to
