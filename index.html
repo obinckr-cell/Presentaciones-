@@ -117,6 +117,21 @@ dialog .two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px
 .pay{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px;font-size:13px}
 #ticket .cambio{font-size:20px;opacity:1;margin-top:8px}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}main{max-width:1000px;margin:auto}.lista .grid{grid-template-columns:repeat(2,1fr)}}
+dialog .two{grid-template-columns:1fr}
+.mesas{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.mesa{padding:14px 0;border-radius:8px;border:1px solid var(--oro2);background:var(--panel2);color:var(--oro);font-family:'DM Serif Display',serif;font-size:22px;display:flex;flex-direction:column;align-items:center}
+.mesa:active{background:var(--oro);color:#1a1208}
+.mesa:disabled{opacity:.35}
+.mesa small{font-size:10px;font-family:Karla,sans-serif}
+.dbtn{display:flex;flex-direction:column;gap:6px}
+#fac{padding:0;background:transparent;border:0;width:min(92%,380px)}
+#facbox{position:relative;background:var(--papel);color:var(--tinta);font-family:'Courier Prime',monospace;padding:20px 18px;border-radius:4px;max-height:88vh;overflow-y:auto;font-size:14px}
+#facbox h2{font-family:'Courier Prime',monospace;font-weight:700;color:var(--tinta);font-size:26px;margin:0}
+#facbox p{color:var(--tinta);font-size:13px;margin:2px 0}
+.fc{text-align:center}
+.fd{border-top:2px dashed #8a7a5c;margin:10px 0}
+.fl{display:flex;justify-content:space-between;gap:8px;text-transform:capitalize}
+.sello{position:absolute;top:92px;right:12px;border:3px solid var(--verde);color:var(--verde);font-weight:700;font-size:24px;padding:0 10px;transform:rotate(-12deg);letter-spacing:2px;background:rgba(241,230,207,.85)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -135,7 +150,7 @@ dialog .two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px
 </section>
 
 <section id="app" hidden>
-  <div id="diabar"><span id="diainfo"></span><button class="btn red" data-a="terminar">Terminar día laboral</button></div>
+  <div id="diabar"><span id="diainfo"></span><div class="dbtn"><button class="btn" data-a="facturas">Facturas (<span id="nfac">0</span>)</button><button class="btn red" data-a="terminar">Terminar día laboral</button></div></div>
   <div class="sticky">
     <div class="scroller" id="acc"></div>
     <div class="buscar"><input id="q" type="search" placeholder="Buscar producto" aria-label="Buscar producto" autocomplete="off"><button class="pill" id="vbtn" data-a="vista">Fotos</button></div>
@@ -156,14 +171,15 @@ dialog .two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px
 
 <dialog id="dlg">
   <h2>Nueva cuenta</h2>
-  <p>Escribe la mesa o el nombre del grupo.</p>
-  <input id="nn" placeholder="Ej: Mesa 3, Familia Pérez" maxlength="30" autocomplete="off">
+  <p>Elige la mesa.</p>
+  <div class="mesas" id="mesas"></div>
   <div class="two">
-    <button class="btn gold" data-a="crear" data-v="ÁTICO">En el local</button>
+    
     <button class="btn gold" data-a="crear" data-v="PARA LLEVAR">Para llevar</button>
   </div>
   <button class="btn" style="width:100%" data-a="cerrardlg">Cancelar</button>
 </dialog>
+<dialog id="fac"><div id="facbox"></div></dialog>
 <div id="toast" role="status"></div>
 
 <script>
@@ -204,7 +220,11 @@ const save=()=>{try{localStorage.setItem("atico_dia",JSON.stringify(S))}catch(e)
 const act=()=>S.cuentas.find(c=>c.id===S.activa);
 const pr=(m,c)=>c.modo==="ÁTICO"?m[2]:m[3];
 const itemTot=(it,c)=>pr(M[it.i],c)+it.ads.reduce((s,a)=>s+pr(M[a],c),0);
-const total=c=>c.items.reduce((s,it)=>s+itemTot(it,c),0)+(c.envio?c.envio.p:0);
+const sub=c=>c.items.reduce((s,it)=>s+itemTot(it,c),0);
+const propina=c=>{const p=c.prop;if(!p||!p.si)return 0;return p.pct?Math.round(sub(c)*p.pct/10000)*100:(p.val||0)};
+const total=c=>sub(c)+(c.envio?c.envio.p:0)+propina(c);
+const vendDia=()=>(S.ventas||[]).reduce((s,c)=>s+total(c),0);
+const MESAS=8;
 const low=s=>s.toLowerCase();
 let tt;
 function toast(t){const e=$("toast");e.textContent=t;e.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>e.classList.remove("show"),1600)}
@@ -224,95 +244,23 @@ function renderAcc(){
   $("acc").innerHTML=S.cuentas.map(c=>`<button class="tk ${c.id===S.activa?"on":""} ${c.pagada?"paid":""}" data-a="selc" data-v="${c.id}"><b>${esc(c.nombre)}</b><small>${c.modo==="ÁTICO"?"Local":"Llevar"} ${money(total(c))}</small></button>`).join("")+`<button class="tk nuevo" data-a="nueva">+ Nueva cuenta</button>`;
   const vend=S.cuentas.reduce((s,c)=>s+total(c),0);
   const hora=S.inicio?new Date(S.inicio).toLocaleTimeString("es-CO",{hour:"numeric",minute:"2-digit"}):"";
-  const por=x=>S.cuentas.filter(c=>c.pagada&&c.metodo===x).reduce((s,c)=>s+total(c),0);
-  $("diainfo").innerHTML=`Día desde las <b>${hora}</b>, <b>${S.cuentas.length}</b> cuentas<br>Vendido <b>${money(vend)}</b><br>Cobrado: efectivo ${money(por("EFECTIVO"))}, transf. ${money(por("TRANSFERENCIA"))}, tarjeta ${money(por("TARJETA"))}`;
+  const V=S.ventas||[],cobrado=V.reduce((s,c)=>s+total(c),0),props=V.reduce((s,c)=>s+propina(c),0);
+  const por=x=>V.filter(c=>c.metodo===x).reduce((s,c)=>s+total(c),0);
+  $("nfac").textContent=V.length;
+  $("diainfo").innerHTML=`Día desde las <b>${hora}</b>, <b>${S.cuentas.length}</b> abiertas<br>Cobrado <b>${money(cobrado)}</b> (propinas ${money(props)})<br>Efectivo ${money(por("EFECTIVO"))}, transf. ${money(por("TRANSFERENCIA"))}, tarjeta ${money(por("TARJETA"))}`;
 }
 function cambioTxt(c){const t=total(c),r=c.recibido||0;if(!r)return"";return r>=t?`Cambio: <b>${money(r-t)}</b>`:`Faltan: <b>${money(t-r)}</b>`}
-function payHtml(c){
-  let h=`<div class="pay"><span>Pago:</span>${["EFECTIVO","TRANSFERENCIA","TARJETA"].map(x=>`<button class="chip ${c.metodo===x?"on":""}" data-a="metodo" data-v="${x}">${low(x)}</button>`).join("")}</div>`;
-  if(c.metodo==="EFECTIVO")h+=`<div class="pay"><span>Recibido:</span><button class="chip" data-a="rec" data-v="${total(c)}">exacto</button><button class="chip" data-a="rec" data-v="50000">$50.000</button><button class="chip" data-a="rec" data-v="100000">$100.000</button></div><input id="recibido" type="number" inputmode="numeric" class="nota" placeholder="Otro valor recibido" value="${c.recibido||""}"><p id="cambio" class="cambio">${cambioTxt(c)}</p>`;
+function propHtml(c){
+  const p=c.prop;
+  let h=`<div class="pay"><span>¿Propina?</span><button class="chip ${p&&p.si?"on":""}" data-a="prop" data-v="si">sí</button><button class="chip ${p&&!p.si?"on":""}" data-a="prop" data-v="no">no</button></div>`;
+  if(p&&p.si)h+=`<div class="pay"><span>Valor:</span>${[5,10,15].map(x=>`<button class="chip ${p.pct===x?"on":""}" data-a="prop" data-v="${x}">${x}%</button>`).join("")}<input id="propv" type="number" inputmode="numeric" class="nota" style="width:110px;margin:0" placeholder="Otro" value="${!p.pct&&p.val?p.val:""}"></div><p>Propina: <b id="propm">${money(propina(c))}</b></p>`;
   return h}
-function renderCart(){
-  const c=act(),box=$("ticket");
-  if(!c){box.innerHTML=`<div class="th"><h2>Sin cuenta</h2><button class="x" data-a="cart" aria-label="Cerrar">✕</button></div><p class="vacio">Abre una cuenta para tomar el pedido.</p><div class="acts"><button class="btn gold" data-a="nueva">Nueva cuenta</button></div>`;return}
-  let h=`<div class="th"><div><h2>${esc(c.nombre)}</h2><p>${c.modo==="ÁTICO"?"En el local":"Para llevar"}${c.pagada?", pagada":""}</p></div><button class="x" data-a="cart" aria-label="Cerrar">✕</button></div>`;
-  if(c.modo!=="ÁTICO")h+=`<div class="env"><span>Domicilio:</span>${ENVIOS.map(e=>`<button class="chip ${c.envio&&c.envio.t===e.t?"on":""}" data-a="envio" data-v="${e.t}">${low(e.t)} ${money(e.p)}</button>`).join("")}<button class="chip ${!c.envio?"on":""}" data-a="envio" data-v="">sin domicilio</button></div>`;
-  if(!c.items.length)h+=`<p class="vacio">Aún no hay productos en esta cuenta.</p>`;
-  c.items.forEach((it,k)=>{const m=M[it.i];
-    h+=`<div class="li"><div class="lr"><span>${low(m[0])}</span><span>${money(itemTot(it,c))}</span><button class="x" data-a="del" data-v="${k}" aria-label="Quitar ${low(m[0])}">✕</button></div>`;
-    if(CONADS.includes(m[1]))h+=`<div class="ads">${ADS.map(a=>`<button class="chip ${it.ads.includes(a)?"on":""}" data-a="ad" data-v="${k}:${a}">+ ${low(M[a][0].replace(/^ADICI[OÓ]N (DE )?/,""))} ${money(pr(M[a],c))}</button>`).join("")}</div>`;
-    h+=`<input class="nota" data-nota="${k}" placeholder="Nota:" value="${esc(it.nota||"")}"></div>`});
-  h+=`<textarea id="notaG" class="nota" placeholder="Notas generales de la cuenta">${esc(c.nota||"")}</textarea>
-  <div class="tot"><span>Total</span><span>${money(total(c))}</span></div>${payHtml(c)}
-  <div class="acts"><button class="btn gold" data-a="wa">Enviar por WhatsApp</button><button class="btn" data-a="pagar">${c.pagada?"Reabrir cuenta":"Marcar como pagada"}</button><button class="btn red" data-a="borrar">Eliminar cuenta</button></div>`;
-  box.innerHTML=h;
-}
-function renderBar(){
-  const c=act();$("bar").hidden=!S.activo;
-  $("barinfo").innerHTML=c?`<small>${esc(c.nombre)}</small><b>${money(total(c))}</b>`:`<small>Sin cuenta activa</small><b>-</b>`;
-  $("cnt").textContent=c?c.items.length:0;
-}
-function refresh(){renderAcc();renderCart();renderBar()}
-function render(){
-  $("hero").hidden=S.activo;$("app").hidden=!S.activo;
-  if(S.activo){renderMenu();refresh()}else{renderBar();document.body.classList.remove("open")}
-}
-function openNew(){$("nn").value="";$("dlg").showModal();setTimeout(()=>$("nn").focus(),50)}
-
-const A={
-  empezar(){S={...EMPTY,activo:true,inicio:Date.now(),cuentas:[]};save();render();openNew()},
-  terminar(){
-    const vend=S.cuentas.reduce((s,c)=>s+total(c),0);
-    if(confirm(`¿Terminar el día laboral?\n\nCuentas: ${S.cuentas.length}\nTotal del día: ${money(vend)}\n\nSe eliminarán todas las cuentas.`)){S={...EMPTY,cuentas:[]};save();render();toast("Día terminado")}
-  },
-  nueva(){document.body.classList.remove("open");openNew()},
-  cerrardlg(){$("dlg").close()},
-  crear(modo){
-    S.seq++;const id=S.seq;
-    S.cuentas.push({id,nombre:$("nn").value.trim()||"Cuenta "+id,modo,envio:null,nota:"",pagada:false,metodo:null,recibido:0,items:[]});
-    S.activa=id;save();$("dlg").close();renderMenu();refresh();
-  },
-  selc(id){S.activa=+id;save();renderMenu();refresh()},
-  cat(c){const e=$("cat-"+c.replace(/ /g,"_"));if(e)e.scrollIntoView({behavior:"smooth"})},
-  cart(){document.body.classList.toggle("open")},
-  add(i){
-    const c=act();if(!c){openNew();return}
-    c.items.push({i:+i,ads:[],nota:""});c.pagada=false;save();refresh();toast("Añadido: "+low(M[i][0]));
-  },
-  del(k){act().items.splice(+k,1);save();refresh()},
-  ad(v){const [k,a]=v.split(":").map(Number),it=act().items[k],p=it.ads.indexOf(a);p>=0?it.ads.splice(p,1):it.ads.push(a);save();refresh()},
-  envio(t){const c=act();c.envio=ENVIOS.find(e=>e.t===t)||null;save();refresh()},
-  pagar(){const c=act();if(!c.pagada&&!c.metodo){toast("Elige el método de pago");return}if(!c.pagada&&c.metodo==="EFECTIVO"&&c.recibido&&c.recibido<total(c)){toast("El efectivo recibido no alcanza");return}c.pagada=!c.pagada;save();refresh()},
-  metodo(v){const c=act();c.metodo=c.metodo===v?null:v;if(v!=="EFECTIVO")c.recibido=0;save();refresh()},
-  rec(v){const c=act();c.recibido=+v;save();refresh()},
-  vista(){const l=document.body.classList.toggle("lista");try{localStorage.setItem("atico_vista",l?"1":"0")}catch(e){}$("vbtn").textContent=l?"Fotos":"Lista"},
-  borrar(){const c=act();if(confirm(`¿Eliminar la cuenta "${c.nombre}"?`)){S.cuentas=S.cuentas.filter(x=>x!==c);S.activa=S.cuentas.length?S.cuentas[S.cuentas.length-1].id:null;save();document.body.classList.remove("open");renderMenu();refresh()}},
-  wa(){
-    const c=act();if(!c||!c.items.length){toast("Agrega productos a la cuenta");return}
-    let m=`*${c.modo} - ${c.nombre}*\n\n`;
-    c.items.forEach(it=>{const mm=M[it.i];m+=`• *${mm[0]}* ${money(pr(mm,c))}\n`;
-      it.ads.forEach(a=>m+=`   + ${M[a][0]} ${money(pr(M[a],c))}\n`);
-      if(it.nota&&it.nota.trim())m+=`   _Nota: ${it.nota.trim()}_\n`});
-    if(c.envio)m+=`\n• *Domicilio ${c.envio.t}* ${money(c.envio.p)}\n`;
-    if(c.nota&&c.nota.trim())m+=`\n*Notas:* ${c.nota.trim()}\n`;
-    m+=`\n*TOTAL: ${money(total(c))}*`;
-    if(c.metodo){m+=`\nPago: ${c.metodo}`;if(c.metodo==="EFECTIVO"&&c.recibido>=total(c))m+=` (recibido ${money(c.recibido)}, cambio ${money(c.recibido-total(c))})`}
-    window.open("https://wa.me/?text="+encodeURIComponent(m),"_blank");
-  }
-};
-document.addEventListener("click",e=>{const b=e.target.closest("[data-a]");if(b&&A[b.dataset.a])A[b.dataset.a](b.dataset.v)});
-document.addEventListener("input",e=>{
-  if(e.target.id==="q"){renderMenu();return}
-  if(e.target.id==="recibido"){const k=act();if(k){k.recibido=+e.target.value||0;save();$("cambio").innerHTML=cambioTxt(k)}return}
-  const c=act();if(!c)return;
-  if(e.target.dataset.nota!==undefined){c.items[+e.target.dataset.nota].nota=e.target.value;save()}
-  else if(e.target.id==="notaG"){c.nota=e.target.value;save()}
-});
-try{if(localStorage.getItem("atico_vista")!=="0")document.body.classList.add("lista")}catch(e){document.body.classList.add("lista")}
-$("vbtn").textContent=document.body.classList.contains("lista")?"Fotos":"Lista";
-if("serviceWorker" in navigator&&location.protocol==="https:"){window.addEventListener("load",()=>{try{navigator.serviceWorker.register("sw.js").catch(()=>{})}catch(e){}})}
-if(S.activo&&!act())S.activa=S.cuentas.length?S.cuentas[0].id:null;
-render();
-</script>
-</body>
-</html>
+function factura(c){
+  const fh=new Date(c.ts).toLocaleString("es-CO",{dateStyle:"short",timeStyle:"short"});
+  let h=`<div class="fc"><h2>ÁTICO</h2><p>Restaurante vintage</p><p>${fh}</p></div><div class="sello">PAGADA</div><div class="fd"></div><p><b>${esc(c.nombre)}</b> - ${c.modo==="ÁTICO"?"En el local":"Para llevar"} - Factura #${c.fid}</p><div class="fd"></div>`;
+  c.items.forEach(it=>{const m=M[it.i];h+=`<div class="fl"><span>${low(m[0])}</span><span>${money(pr(m,c))}</span></div>`;it.ads.forEach(a=>h+=`<div class="fl"><span>+ ${low(M[a][0].replace(/^ADICI[OÓ]N (DE )?/,""))}</span><span>${money(pr(M[a],c))}</span></div>`)});
+  h+=`<div class="fd"></div><div class="fl"><span>Subtotal</span><span>${money(sub(c))}</span></div>`;
+  if(c.envio)h+=`<div class="fl"><span>Domicilio</span><span>${money(c.envio.p)}</span></div>`;
+  if(propina(c))h+=`<div class="fl"><span>Propina${c.prop.pct?" "+c.prop.pct+"%":""}</span><span>${money(propina(c))}</span></div>`;
+  h+=`<div class="fl" style="font-size:20px;font-weight:700;margin-top:6px"><span>TOTAL</span><span>${money(total(c))}</span></div><div class="fd"></div><div class="fl"><span>Pago</span><span>${low(c.metodo)}</span></div>`;
+  if(c.metodo==="EFECTIVO"&&c.recibido>=total(c))h+=`<div class="fl"><span>Recibido</span><span>${money(c.recibido)
