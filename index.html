@@ -143,6 +143,7 @@ dialog .two{grid-template-columns:1fr}
 </header>
 
 <main>
+<p id="fallo" style="padding:36px 22px;text-align:center;color:#e58a82;line-height:1.5">La página no pudo cargar.<br>El archivo <b>index.html</b> está incompleto o es una versión vieja.<br>Súbelo de nuevo a GitHub como archivo (sin copiar y pegar).</p>
 <section id="hero" hidden>
   <h2>¿Listo para abrir el día?</h2>
   <p>Empieza el día laboral y abre una cuenta por cada grupo que llegue.</p>
@@ -183,6 +184,7 @@ dialog .two{grid-template-columns:1fr}
 <div id="toast" role="status"></div>
 
 <script>
+document.getElementById("fallo").hidden=true;
 window.addEventListener("error",e=>{const d=document.createElement("div");d.style.cssText="position:fixed;top:0;left:0;right:0;z-index:999;background:#b8473f;color:#fff;padding:10px;font:13px monospace";d.textContent="Error: "+e.message+" (línea "+e.lineno+")";document.body.appendChild(d)});
 const WA="573106505193";
 const FB="data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="#241d16"/><text x="150" y="112" font-size="48" text-anchor="middle" fill="#a9822f">Á</text></svg>');
@@ -261,6 +263,4 @@ function factura(c){
   let h=`<div class="fc"><h2>ÁTICO</h2><p>Restaurante vintage</p><p>${fh}</p></div><div class="sello">PAGADA</div><div class="fd"></div><p><b>${esc(c.nombre)}</b> - ${c.modo==="ÁTICO"?"En el local":"Para llevar"} - Factura #${c.fid}</p><div class="fd"></div>`;
   c.items.forEach(it=>{const m=M[it.i];h+=`<div class="fl"><span>${low(m[0])}</span><span>${money(pr(m,c))}</span></div>`;it.ads.forEach(a=>h+=`<div class="fl"><span>+ ${low(M[a][0].replace(/^ADICI[OÓ]N (DE )?/,""))}</span><span>${money(pr(M[a],c))}</span></div>`)});
   h+=`<div class="fd"></div><div class="fl"><span>Subtotal</span><span>${money(sub(c))}</span></div>`;
-  if(c.envio)h+=`<div class="fl"><span>Domicilio</span><span>${money(c.envio.p)}</span></div>`;
-  if(propina(c))h+=`<div class="fl"><span>Propina${c.prop.pct?" "+c.prop.pct+"%":""}</span><span>${money(propina(c))}</span></div>`;
-  h+=`<div class="fl" style="font-size:20px;font-weight:700;margin-top:6px"><span>TOTAL</span><span>${money(to
+  if(c.envio)h+=`<div class="fl"><span>D
