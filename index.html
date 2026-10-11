@@ -241,7 +241,7 @@ function renderCart(){
   c.items.forEach((it,k)=>{const m=M[it.i];
     h+=`<div class="li"><div class="lr"><span>${low(m[0])}</span><span>${money(itemTot(it,c))}</span><button class="x" data-a="del" data-v="${k}" aria-label="Quitar ${low(m[0])}">✕</button></div>`;
     if(CONADS.includes(m[1]))h+=`<div class="ads">${ADS.map(a=>`<button class="chip ${it.ads.includes(a)?"on":""}" data-a="ad" data-v="${k}:${a}">+ ${low(M[a][0].replace(/^ADICI[OÓ]N (DE )?/,""))} ${money(pr(M[a],c))}</button>`).join("")}</div>`;
-    h+=`<input class="nota" data-nota="${k}" placeholder="Nota (ej: sin cebolla)" value="${esc(it.nota||"")}"></div>`});
+    h+=`<input class="nota" data-nota="${k}" placeholder="Nota:" value="${esc(it.nota||"")}"></div>`});
   h+=`<textarea id="notaG" class="nota" placeholder="Notas generales de la cuenta">${esc(c.nota||"")}</textarea>
   <div class="tot"><span>Total</span><span>${money(total(c))}</span></div>${payHtml(c)}
   <div class="acts"><button class="btn gold" data-a="wa">Enviar por WhatsApp</button><button class="btn" data-a="pagar">${c.pagada?"Reabrir cuenta":"Marcar como pagada"}</button><button class="btn red" data-a="borrar">Eliminar cuenta</button></div>`;
