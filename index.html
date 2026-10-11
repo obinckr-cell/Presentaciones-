@@ -183,6 +183,7 @@ dialog .two{grid-template-columns:1fr}
 <div id="toast" role="status"></div>
 
 <script>
+window.addEventListener("error",e=>{const d=document.createElement("div");d.style.cssText="position:fixed;top:0;left:0;right:0;z-index:999;background:#b8473f;color:#fff;padding:10px;font:13px monospace";d.textContent="Error: "+e.message+" (línea "+e.lineno+")";document.body.appendChild(d)});
 const WA="573106505193";
 const FB="data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200"><rect width="300" height="200" fill="#241d16"/><text x="150" y="112" font-size="48" text-anchor="middle" fill="#a9822f">Á</text></svg>');
 // [nombre, categoría, precio en el local, precio para llevar, imagen]
@@ -262,5 +263,4 @@ function factura(c){
   h+=`<div class="fd"></div><div class="fl"><span>Subtotal</span><span>${money(sub(c))}</span></div>`;
   if(c.envio)h+=`<div class="fl"><span>Domicilio</span><span>${money(c.envio.p)}</span></div>`;
   if(propina(c))h+=`<div class="fl"><span>Propina${c.prop.pct?" "+c.prop.pct+"%":""}</span><span>${money(propina(c))}</span></div>`;
-  h+=`<div class="fl" style="font-size:20px;font-weight:700;margin-top:6px"><span>TOTAL</span><span>${money(total(c))}</span></div><div class="fd"></div><div class="fl"><span>Pago</span><span>${low(c.metodo)}</span></div>`;
-  if(c.metodo==="EFECTIVO"&&c.recibido>=total(c))h+=`<div class="fl"><span>Recibido</span><span>${money(c.recibido)
+  h+=`<div class="fl" style="font-size:20px;fo
